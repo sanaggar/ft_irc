@@ -1,0 +1,26 @@
+
+/////
+
+nc : ne pas crée la classe user tant que j'ai pas recu PASS USER et NICK 
+donc tjr passer  dans la fonction recv msg et faire une condition dans 
+recv qui va parser le msg uniquement si la classe user 
+(qui sera link avec le fd en qt) est créee
+
+
+
+cout << "Server has detected a connection !" << endl;
+int clientFlags = fcntl(this->_newClientSocket, F_GETFL, 0);
+--> verifier autre syntax pour netcat
+
+Dans void	handling_server_msg(Server *server, int i) :
+	bytesRead = recv(server->clientfd[i].fd, buffer, sizeof(buffer), 0);
+
+	if (bytesRead > 0)
+		buffer[bytesRead] = '\0';
+	else
+	{
+		cout << "Client " << i << " has been disconnected" << endl;
+		server->user_disconnect(server->clientfd[i].fd);
+		memset(&server->clientfd[i], 0, sizeof(server->clientfd[i]));
+	}
+	COMPLETER LA GESTION D'ERREUR QUAND bytesRead == -1
